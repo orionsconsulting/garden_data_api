@@ -15,4 +15,4 @@ class WeatherStationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WeatherStation
-        fields = ('id', 'weather_station', 'description')
+        fields = ('pk', 'weather_station', 'description')
