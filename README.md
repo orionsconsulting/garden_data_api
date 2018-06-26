@@ -8,7 +8,7 @@ python3 manage.py test -v 2
 
 **run server**
 
-python3 manage.py runserver 0.0.0.0
+python3 manage.py runserver 0.0.0.0:8000
 
 pip install --upgrade pip
 pip install django

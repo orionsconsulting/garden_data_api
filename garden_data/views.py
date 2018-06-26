@@ -19,8 +19,8 @@ def weather_station_list(request):
         weather_station_serializer = WeatherStationSerializer(weather_station, many=True)
         return JSONResponse(weather_station_serializer.data)
     elif request.method == 'POST':
-        weather_station_data = JSONParser.parse(request)
-        weather_station_serializer = WeatherStationSerializer(data =weather_station_data)
+        weather_station_data = JSONParser().parse(request)
+        weather_station_serializer = WeatherStationSerializer(data=weather_station_data)
         if weather_station_serializer.is_valid():
             weather_station_serializer.save()
             return JSONResponse(weather_station_serializer.data, status=status.HTTP_201_CREATED)
@@ -44,7 +44,7 @@ def weather_station_detail(request,pk):
             weather_station_serializer.save()
             return JSONResponse(weather_station_serializer.data)
         else:
-            return JSONResponse(weather_station_serializer.errors, status==status.HTTP_400_BAD_REQUEST)
+            return JSONResponse(weather_station_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'DELETE':
         weather_station.delete()
         return HttpResponse(status=status.HTTP_204_NO_CONTENT)
