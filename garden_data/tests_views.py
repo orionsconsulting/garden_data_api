@@ -33,7 +33,7 @@ class GardenDataViewTestCase(TestCase):
         json_data = json.dumps({"weather_station": 1})
         response = client.post('/weather_station/', data=json_data, content_type='json')
         self.assertEqual(400, response.status_code)
-        json_data = json.dumps({"weather_station": 1, "description": "orions garden weather station"})
+        json_data = json.dumps({"weather_station": 1, "description": "test station"})
         response = client.post('/weather_station/', data=json_data, content_type='json')
         self.assertEqual(201, response.status_code)
 

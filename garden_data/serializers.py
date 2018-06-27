@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from garden_data.submodel.weather_station import WeatherStation
+from garden_data.submodel.garden_data import GardenData
 
 class WeatherStationSerializer(serializers.ModelSerializer):
     pk = serializers.IntegerField(read_only=True)
@@ -16,3 +17,19 @@ class WeatherStationSerializer(serializers.ModelSerializer):
     class Meta:
         model = WeatherStation
         fields = ('pk', 'weather_station', 'description')
+
+class GardenDataSerializer(serializers.HyperlinkedModelSerializer):
+    weather_station_description = serializers.SlugRelatedField(queryset=WeatherStation.objects.all(),
+                                                               slug_field='description')
+
+    class Meta:
+        model = GardenData
+        fields = (
+            'url',
+            'pk',
+            'observation_timestamp',
+            'weather_station_description',
+            'soil_temp',
+            'air_temp',
+            'soil_moisture'
+        )
