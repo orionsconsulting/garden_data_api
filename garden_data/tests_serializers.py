@@ -9,9 +9,6 @@ from garden_data.serializers import GardenDataSerializer
 
 
 class GardenDataSerializerTestCase(TestCase):
-    #def setUp(self):
-    #    weather_station2 = WeatherStation(weather_station='2', description='test 2')
-    #    weather_station2.save()
 
     def test_create_weatherstation(self):
         json_string = '{"weather_station":1, "description": "orions garden weather station"}'
@@ -55,14 +52,11 @@ class GardenDataSerializerTestCase(TestCase):
         weather_station1 = WeatherStation(weather_station='1', description='orions garden weather station')
         weather_station1.save()
         json_string = """
-            {"observation_timestamp": "2018-01-01 11:59:00", "weather_station": 2,
+            {"observation_timestamp": "2018-01-01 11:59:00", "weather_station": weather_station1,
                       "soil_temp": 95.8, "air_temp":50.0, "soil_moisture":50}
         """
-        json_bytes = bytes(json_string, encoding='UTF-8')
-        stream = BytesIO(json_bytes)
-        parser = JSONParser()
-        parsed_station = parser.parse(stream)
-        new_data_serializer = GardenDataSerializer(data=parsed_station)
+
+        new_data_serializer = GardenDataSerializer(data=json_string)
         if new_data_serializer.is_valid():
             new_data = new_data_serializer.save()
             self.assertEqual(95.8, new_data.soil_temp)
